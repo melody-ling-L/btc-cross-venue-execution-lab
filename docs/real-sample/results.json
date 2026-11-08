@@ -1,0 +1,445 @@
+[
+  {
+    "assumptions": {
+      "configuration": "The parameters field contains validated resolved engine settings, not inferred defaults.",
+      "publication": "Rounded aggregate export: money to 1 USDT and extra BTC to 0.001 BTC. Exact ledger checked before export.",
+      "scope": "Historical displayed depth and simulated IOC fills; no live orders or guaranteed liquidity.",
+      "valuation": "Common marks are not liquidation prices; fees are already included in cash once."
+    },
+    "ledger_audit": {
+      "checks": [
+        {
+          "identity": "Ending equity − initial equity = total PnL",
+          "status": "PASS"
+        },
+        {
+          "identity": "Hold benchmark − initial equity = inventory PnL",
+          "status": "PASS"
+        },
+        {
+          "identity": "Ending equity − hold benchmark = execution contribution",
+          "status": "PASS"
+        },
+        {
+          "identity": "Total PnL = inventory PnL + execution contribution",
+          "status": "PASS"
+        },
+        {
+          "identity": "Final BTC − initial BTC = ending extra BTC",
+          "status": "PASS"
+        }
+      ],
+      "scope": "Exact known-fill ledger checked before export; no exact values or residuals published."
+    },
+    "metrics": {
+      "candidates": 8764,
+      "censored_pairs": 0,
+      "ending_extra_btc": "0.000",
+      "execution_contribution_usdt": "1",
+      "execution_unknown_pairs": 0,
+      "fees_usdt": "0",
+      "max_extra_btc": "0.000",
+      "no_fill_pairs": 0,
+      "partial_pairs": 0,
+      "reject_counts": {
+        "edge_not_above_minimum": 1067,
+        "insufficient_sell_inventory": 1075,
+        "missing_venue": 1,
+        "pair_budget": 7597
+      },
+      "risk_halts": 0,
+      "round_trips_complete": 100,
+      "single_leg_pairs": 0,
+      "submitted_pairs": 100
+    },
+    "model": "screen",
+    "parameters": {
+      "depth_mode": "top",
+      "fee_bps": {
+        "alpha": "0",
+        "beta": "0"
+      },
+      "latency_ms": 0,
+      "max_event_skew_ms": 100,
+      "max_pairs": 100,
+      "max_quote_age_ms": 250,
+      "max_unhedged_btc": "0.005",
+      "min_edge_bps": "0",
+      "order_qty": "0.005",
+      "quality_gates": false,
+      "require_event_time": true,
+      "risk_halt": false,
+      "signal_policy": "gross"
+    },
+    "provenance": {
+      "export": "aggregate_only",
+      "input_sha256": "83d9835884e68c46d3965983cf6f37efc68b0ce465ef026822526ffa9ba51167",
+      "note": "Raw market data, traces, per-venue balances, equity, marks, exact financial aggregates and unapproved metadata are excluded."
+    },
+    "publication": {
+      "btc_quantum": "0.001",
+      "mode": "rounded_aggregate_only",
+      "money_quantum_usdt": "1",
+      "rounding": "ROUND_HALF_UP"
+    },
+    "scenario": "tardis_l5_sample",
+    "schema_version": 1,
+    "source_kind": "tardis_l5_sample",
+    "valuation_status": "complete_within_model"
+  },
+  {
+    "assumptions": {
+      "configuration": "The parameters field contains validated resolved engine settings, not inferred defaults.",
+      "publication": "Rounded aggregate export: money to 1 USDT and extra BTC to 0.001 BTC. Exact ledger checked before export.",
+      "scope": "Historical displayed depth and simulated IOC fills; no live orders or guaranteed liquidity.",
+      "valuation": "Common marks are not liquidation prices; fees are already included in cash once."
+    },
+    "ledger_audit": {
+      "checks": [
+        {
+          "identity": "Ending equity − initial equity = total PnL",
+          "status": "PASS"
+        },
+        {
+          "identity": "Hold benchmark − initial equity = inventory PnL",
+          "status": "PASS"
+        },
+        {
+          "identity": "Ending equity − hold benchmark = execution contribution",
+          "status": "PASS"
+        },
+        {
+          "identity": "Total PnL = inventory PnL + execution contribution",
+          "status": "PASS"
+        },
+        {
+          "identity": "Final BTC − initial BTC = ending extra BTC",
+          "status": "PASS"
+        }
+      ],
+      "scope": "Exact known-fill ledger checked before export; no exact values or residuals published."
+    },
+    "metrics": {
+      "candidates": 8764,
+      "censored_pairs": 0,
+      "ending_extra_btc": "0.000",
+      "execution_contribution_usdt": "-82",
+      "execution_unknown_pairs": 0,
+      "fees_usdt": "84",
+      "max_extra_btc": "0.000",
+      "no_fill_pairs": 0,
+      "partial_pairs": 0,
+      "reject_counts": {
+        "edge_not_above_minimum": 1067,
+        "insufficient_sell_inventory": 1075,
+        "missing_venue": 1,
+        "pair_budget": 7597
+      },
+      "risk_halts": 0,
+      "round_trips_complete": 100,
+      "single_leg_pairs": 0,
+      "submitted_pairs": 100
+    },
+    "model": "fees",
+    "parameters": {
+      "depth_mode": "top",
+      "fee_bps": {
+        "alpha": "10.000",
+        "beta": "10.000"
+      },
+      "latency_ms": 0,
+      "max_event_skew_ms": 100,
+      "max_pairs": 100,
+      "max_quote_age_ms": 250,
+      "max_unhedged_btc": "0.005",
+      "min_edge_bps": "0",
+      "order_qty": "0.005",
+      "quality_gates": false,
+      "require_event_time": true,
+      "risk_halt": false,
+      "signal_policy": "gross"
+    },
+    "provenance": {
+      "export": "aggregate_only",
+      "input_sha256": "0bbdc1ec3ab9f7a1ffc4705abc36da20432bffa79a8ca19e0d12a2aef086305a",
+      "note": "Raw market data, traces, per-venue balances, equity, marks, exact financial aggregates and unapproved metadata are excluded."
+    },
+    "publication": {
+      "btc_quantum": "0.001",
+      "mode": "rounded_aggregate_only",
+      "money_quantum_usdt": "1",
+      "rounding": "ROUND_HALF_UP"
+    },
+    "scenario": "tardis_l5_sample",
+    "schema_version": 1,
+    "source_kind": "tardis_l5_sample",
+    "valuation_status": "complete_within_model"
+  },
+  {
+    "assumptions": {
+      "configuration": "The parameters field contains validated resolved engine settings, not inferred defaults.",
+      "publication": "Rounded aggregate export: money to 1 USDT and extra BTC to 0.001 BTC. Exact ledger checked before export.",
+      "scope": "Historical displayed depth and simulated IOC fills; no live orders or guaranteed liquidity.",
+      "valuation": "Common marks are not liquidation prices; fees are already included in cash once."
+    },
+    "ledger_audit": {
+      "checks": [
+        {
+          "identity": "Ending equity − initial equity = total PnL",
+          "status": "PASS"
+        },
+        {
+          "identity": "Hold benchmark − initial equity = inventory PnL",
+          "status": "PASS"
+        },
+        {
+          "identity": "Ending equity − hold benchmark = execution contribution",
+          "status": "PASS"
+        },
+        {
+          "identity": "Total PnL = inventory PnL + execution contribution",
+          "status": "PASS"
+        },
+        {
+          "identity": "Final BTC − initial BTC = ending extra BTC",
+          "status": "PASS"
+        }
+      ],
+      "scope": "Exact known-fill ledger checked before export; no exact values or residuals published."
+    },
+    "metrics": {
+      "candidates": 8764,
+      "censored_pairs": 0,
+      "ending_extra_btc": "0.000",
+      "execution_contribution_usdt": "-82",
+      "execution_unknown_pairs": 0,
+      "fees_usdt": "84",
+      "max_extra_btc": "0.000",
+      "no_fill_pairs": 0,
+      "partial_pairs": 0,
+      "reject_counts": {
+        "edge_not_above_minimum": 1070,
+        "insufficient_known_depth": 1,
+        "insufficient_sell_inventory": 1077,
+        "missing_venue": 1,
+        "pair_budget": 7593
+      },
+      "risk_halts": 0,
+      "round_trips_complete": 100,
+      "single_leg_pairs": 0,
+      "submitted_pairs": 100
+    },
+    "model": "depth",
+    "parameters": {
+      "depth_mode": "l2",
+      "fee_bps": {
+        "alpha": "10.000",
+        "beta": "10.000"
+      },
+      "latency_ms": 0,
+      "max_event_skew_ms": 100,
+      "max_pairs": 100,
+      "max_quote_age_ms": 250,
+      "max_unhedged_btc": "0.005",
+      "min_edge_bps": "0",
+      "order_qty": "0.005",
+      "quality_gates": false,
+      "require_event_time": true,
+      "risk_halt": false,
+      "signal_policy": "gross"
+    },
+    "provenance": {
+      "export": "aggregate_only",
+      "input_sha256": "9065be286fc41106067195b85760fb4281072d5d7aa3ca2904ff9e29fd33d12b",
+      "note": "Raw market data, traces, per-venue balances, equity, marks, exact financial aggregates and unapproved metadata are excluded."
+    },
+    "publication": {
+      "btc_quantum": "0.001",
+      "mode": "rounded_aggregate_only",
+      "money_quantum_usdt": "1",
+      "rounding": "ROUND_HALF_UP"
+    },
+    "scenario": "tardis_l5_sample",
+    "schema_version": 1,
+    "source_kind": "tardis_l5_sample",
+    "valuation_status": "complete_within_model"
+  },
+  {
+    "assumptions": {
+      "configuration": "The parameters field contains validated resolved engine settings, not inferred defaults.",
+      "publication": "Rounded aggregate export: money to 1 USDT and extra BTC to 0.001 BTC. Exact ledger checked before export.",
+      "scope": "Historical displayed depth and simulated IOC fills; no live orders or guaranteed liquidity.",
+      "valuation": "Common marks are not liquidation prices; fees are already included in cash once."
+    },
+    "ledger_audit": {
+      "checks": [
+        {
+          "identity": "Ending equity − initial equity = total PnL",
+          "status": "PASS"
+        },
+        {
+          "identity": "Hold benchmark − initial equity = inventory PnL",
+          "status": "PASS"
+        },
+        {
+          "identity": "Ending equity − hold benchmark = execution contribution",
+          "status": "PASS"
+        },
+        {
+          "identity": "Total PnL = inventory PnL + execution contribution",
+          "status": "PASS"
+        },
+        {
+          "identity": "Final BTC − initial BTC = ending extra BTC",
+          "status": "PASS"
+        }
+      ],
+      "scope": "Exact known-fill ledger checked before export; no exact values or residuals published."
+    },
+    "metrics": {
+      "candidates": 8546,
+      "censored_pairs": 0,
+      "ending_extra_btc": "0.010",
+      "execution_contribution_usdt": "-76",
+      "execution_unknown_pairs": 0,
+      "fees_usdt": "77",
+      "max_extra_btc": "0.010",
+      "no_fill_pairs": 0,
+      "partial_pairs": 0,
+      "reject_counts": {
+        "edge_not_above_minimum": 1151,
+        "insufficient_known_depth": 1,
+        "insufficient_sell_inventory": 1164,
+        "missing_venue": 1,
+        "pair_budget": 7294
+      },
+      "risk_halts": 0,
+      "round_trips_complete": 84,
+      "single_leg_pairs": 16,
+      "submitted_pairs": 100
+    },
+    "model": "latency",
+    "parameters": {
+      "depth_mode": "l2",
+      "fee_bps": {
+        "alpha": "10.000",
+        "beta": "10.000"
+      },
+      "latency_ms": 100,
+      "max_event_skew_ms": 100,
+      "max_pairs": 100,
+      "max_quote_age_ms": 250,
+      "max_unhedged_btc": "0.005",
+      "min_edge_bps": "0",
+      "order_qty": "0.005",
+      "quality_gates": false,
+      "require_event_time": true,
+      "risk_halt": false,
+      "signal_policy": "gross"
+    },
+    "provenance": {
+      "export": "aggregate_only",
+      "input_sha256": "1caca83d681a1c94f10f92cd6e78a287831b6fe7ffd7d760b8fa1d5fe3e7375f",
+      "note": "Raw market data, traces, per-venue balances, equity, marks, exact financial aggregates and unapproved metadata are excluded."
+    },
+    "publication": {
+      "btc_quantum": "0.001",
+      "mode": "rounded_aggregate_only",
+      "money_quantum_usdt": "1",
+      "rounding": "ROUND_HALF_UP"
+    },
+    "scenario": "tardis_l5_sample",
+    "schema_version": 1,
+    "source_kind": "tardis_l5_sample",
+    "valuation_status": "complete_within_model"
+  },
+  {
+    "assumptions": {
+      "configuration": "The parameters field contains validated resolved engine settings, not inferred defaults.",
+      "publication": "Rounded aggregate export: money to 1 USDT and extra BTC to 0.001 BTC. Exact ledger checked before export.",
+      "scope": "Historical displayed depth and simulated IOC fills; no live orders or guaranteed liquidity.",
+      "valuation": "Common marks are not liquidation prices; fees are already included in cash once."
+    },
+    "ledger_audit": {
+      "checks": [
+        {
+          "identity": "Ending equity − initial equity = total PnL",
+          "status": "PASS"
+        },
+        {
+          "identity": "Hold benchmark − initial equity = inventory PnL",
+          "status": "PASS"
+        },
+        {
+          "identity": "Ending equity − hold benchmark = execution contribution",
+          "status": "PASS"
+        },
+        {
+          "identity": "Total PnL = inventory PnL + execution contribution",
+          "status": "PASS"
+        },
+        {
+          "identity": "Final BTC − initial BTC = ending extra BTC",
+          "status": "PASS"
+        }
+      ],
+      "scope": "Exact known-fill ledger checked before export; no exact values or residuals published."
+    },
+    "metrics": {
+      "candidates": 8764,
+      "censored_pairs": 0,
+      "ending_extra_btc": "0.000",
+      "execution_contribution_usdt": "0",
+      "execution_unknown_pairs": 0,
+      "fees_usdt": "0",
+      "max_extra_btc": "0.000",
+      "no_fill_pairs": 0,
+      "partial_pairs": 0,
+      "reject_counts": {
+        "cross_venue_time_skew": 1376,
+        "edge_not_above_minimum": 5667,
+        "insufficient_known_depth": 1,
+        "missing_venue": 1,
+        "stale_quote": 1721
+      },
+      "risk_halts": 0,
+      "round_trips_complete": 0,
+      "single_leg_pairs": 0,
+      "submitted_pairs": 0
+    },
+    "model": "guarded",
+    "parameters": {
+      "depth_mode": "l2",
+      "fee_bps": {
+        "alpha": "10.000",
+        "beta": "10.000"
+      },
+      "latency_ms": 100,
+      "max_event_skew_ms": 100,
+      "max_pairs": 100,
+      "max_quote_age_ms": 250,
+      "max_unhedged_btc": "0.005",
+      "min_edge_bps": "0",
+      "order_qty": "0.005",
+      "quality_gates": true,
+      "require_event_time": true,
+      "risk_halt": true,
+      "signal_policy": "net"
+    },
+    "provenance": {
+      "export": "aggregate_only",
+      "input_sha256": "9c3cc9c333193a03ad9f3a72084c283b4818f4d567a6ab9f71612f30810af185",
+      "note": "Raw market data, traces, per-venue balances, equity, marks, exact financial aggregates and unapproved metadata are excluded."
+    },
+    "publication": {
+      "btc_quantum": "0.001",
+      "mode": "rounded_aggregate_only",
+      "money_quantum_usdt": "1",
+      "rounding": "ROUND_HALF_UP"
+    },
+    "scenario": "tardis_l5_sample",
+    "schema_version": 1,
+    "source_kind": "tardis_l5_sample",
+    "valuation_status": "complete_within_model"
+  }
+]

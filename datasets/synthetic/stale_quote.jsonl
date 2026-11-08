@@ -1,0 +1,4 @@
+{"asks":[["100000","0.5"]],"bids":[["99990","0.5"]],"event_ms":0,"recv_ms":0,"schema_version":1,"sequence":1,"source_kind":"synthetic","symbol":"BTCUSDT","timing_basis":"synthetic_receive","venue":"alpha"}
+{"asks":[["100510","0.5"]],"bids":[["100500","0.5"]],"event_ms":1000,"recv_ms":1000,"schema_version":1,"sequence":1,"source_kind":"synthetic","symbol":"BTCUSDT","timing_basis":"synthetic_receive","venue":"beta"}
+{"asks":[["100510","0.5"]],"bids":[["100500","0.5"]],"event_ms":1099,"recv_ms":1099,"schema_version":1,"sequence":2,"source_kind":"synthetic","symbol":"BTCUSDT","timing_basis":"synthetic_receive","venue":"beta"}
+{"asks":[["100010","0.5"]],"bids":[["99990","0.5"]],"event_ms":1300,"recv_ms":1300,"schema_version":1,"sequence":3,"source_kind":"synthetic","symbol":"BTCUSDT","timing_basis":"synthetic_receive","venue":"beta"}

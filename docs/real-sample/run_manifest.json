@@ -1,0 +1,175 @@
+{
+  "code_sha256": "43f10f83d3afbff8e2e3f752fe55ae603718d68c15d20b52e4a2bcdf22df1c8d",
+  "compressed_files": [
+    {
+      "bytes": 13728600,
+      "name": "binance_book_snapshot_5_2026-10-01_BTCUSDT.csv.gz",
+      "sha256": "7e508e8d910c98caf1778787be8498fda131c61f8b4e8d2dcabf22902f2f62f7"
+    },
+    {
+      "bytes": 20797707,
+      "name": "bybit-spot_book_snapshot_5_2026-10-01_BTCUSDT.csv.gz",
+      "sha256": "517b459afa2c7f1bdf5892e4445aee05b341a278cae1dcf33cdd0d34bf4df6f2"
+    }
+  ],
+  "input_mode": "vendor_download_or_cache",
+  "models": [
+    "screen",
+    "fees",
+    "depth",
+    "latency",
+    "guarded"
+  ],
+  "normalized_input_sha256": "d3d1d8df97b6060dcd695f9ebe4784a45abfefa2482a8050155943d23f05a924",
+  "note": "Historical vendor snapshots; simulated execution, assumed fees and extra latency. No live trading result.",
+  "parameters_by_run": [
+    {
+      "model": "screen",
+      "parameters": {
+        "depth_mode": "top",
+        "fee_bps": {
+          "alpha": "0",
+          "beta": "0"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 100,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.005",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "tardis_l5_sample"
+    },
+    {
+      "model": "fees",
+      "parameters": {
+        "depth_mode": "top",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 100,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.005",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "tardis_l5_sample"
+    },
+    {
+      "model": "depth",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 100,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.005",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "tardis_l5_sample"
+    },
+    {
+      "model": "latency",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 100,
+        "max_event_skew_ms": 100,
+        "max_pairs": 100,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.005",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "tardis_l5_sample"
+    },
+    {
+      "model": "guarded",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 100,
+        "max_event_skew_ms": 100,
+        "max_pairs": 100,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.005",
+        "quality_gates": true,
+        "require_event_time": true,
+        "risk_halt": true,
+        "signal_policy": "net"
+      },
+      "scenario": "tardis_l5_sample"
+    }
+  ],
+  "public_safe_export": true,
+  "python": "3.14.4",
+  "requested_sample_day": "2026-10-01",
+  "runs": 5,
+  "schema_version": 1,
+  "source_kind": "tardis_l5_sample",
+  "source_metadata": {
+    "clock_quantization": "ceil_to_ms_bucket_end",
+    "end_ms": 1790813401608,
+    "first_retained_recv_ms": 1790812801574,
+    "last_retained_recv_ms": 1790813401517,
+    "limitations": [
+      "Vendor receive timestamps describe Tardis capture infrastructure, not the user's network.",
+      "Only the known top five levels per side are present; deeper execution cannot be inferred.",
+      "Tardis reconstructs snapshots and removes crossed levels; CSV does not include disconnect events.",
+      "A missing exchange timestamp stays null; provider timestamp fallback values are retained as supplied.",
+      "Sequence is a source row ordinal, not an exchange update ID; equal-millisecond ordering uses recv_us.",
+      "Receive times round up to each 1ms bucket end for decisions; recv_us is retained, but no submillisecond execution is claimed.",
+      "Only the consumed CSV prefix is validated; event caps and source coverage can shorten the requested window.",
+      "Monthly first-day samples cannot establish representative long-run or achievable live performance.",
+      "Raw and reformatted records remain private under the provider licence; publish permitted derived research only."
+    ],
+    "limited_depth": 5,
+    "record_counts": {
+      "alpha": 3817,
+      "beta": 4948
+    },
+    "replay_horizon_note": "The selection window may end after the last retained snapshot. The engine ends at that last snapshot; no heartbeat or new liquidity is fabricated.",
+    "requested_end_ms": 1790813401608,
+    "source_kind": "tardis_l5_sample",
+    "source_urls": [
+      "https://datasets.tardis.dev/v1/binance/book_snapshot_5/2026/10/01/BTCUSDT.csv.gz",
+      "https://datasets.tardis.dev/v1/bybit-spot/book_snapshot_5/2026/10/01/BTCUSDT.csv.gz"
+    ],
+    "start_ms": 1790812801608,
+    "timing_basis": "vendor_receive",
+    "truncated": false
+  }
+}

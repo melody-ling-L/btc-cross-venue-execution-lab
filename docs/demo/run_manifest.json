@@ -1,0 +1,748 @@
+{
+  "code_sha256": "43f10f83d3afbff8e2e3f752fe55ae603718d68c15d20b52e4a2bcdf22df1c8d",
+  "dataset_manifest": {
+    "note": "Engineered mechanism experiments, not historical observations.",
+    "scenarios": [
+      {
+        "config_overrides": {},
+        "description": "A positive top-of-book spread becomes negative after two-sided fees.",
+        "file": "fee_trap.jsonl",
+        "id": "fee_trap",
+        "rows": 6,
+        "sha256": "1725ae36d016f05cd22dc919568d4bb7b734ae5dc101c1358d212527bb56e055"
+      },
+      {
+        "config_overrides": {},
+        "description": "The top level is too small; quantity-dependent VWAP erases the apparent edge.",
+        "file": "depth_trap.jsonl",
+        "id": "depth_trap",
+        "rows": 6,
+        "sha256": "84671e60f722deea6053a5e2537017c3dca075ad60d932bb9a53273bf702119b"
+      },
+      {
+        "config_overrides": {
+          "mark_end": "99000"
+        },
+        "description": "A sell quote moves before IOC arrival; only the buy fills before a lower terminal mark.",
+        "file": "latency_race.jsonl",
+        "id": "latency_race",
+        "rows": 6,
+        "sha256": "52470e79352bdd84fb24f59353bf25473c68f3c610acac90a903d79c697c5fd3"
+      },
+      {
+        "config_overrides": {
+          "mark_end": "99000"
+        },
+        "description": "The sell book thins after the decision, leaving unmatched BTC and triggering a halt.",
+        "file": "partial_leg.jsonl",
+        "id": "partial_leg",
+        "rows": 6,
+        "sha256": "1bc1f55acb34d32d07285277851c98a2e0f5a3bde79c8233c0f009b946eabceb"
+      },
+      {
+        "config_overrides": {},
+        "description": "A fresh quote is paired with an old snapshot; guarded entry rejects it.",
+        "file": "stale_quote.jsonl",
+        "id": "stale_quote",
+        "rows": 4,
+        "sha256": "c3bbe4fc72a1b3b5db8ba3fbd4322d683db0a94ff52d1702785672f1b628140e"
+      },
+      {
+        "config_overrides": {
+          "initial_balances": {
+            "alpha": {
+              "btc": "0.2",
+              "usdt": "500"
+            },
+            "beta": {
+              "btc": "0.005",
+              "usdt": "20000"
+            }
+          }
+        },
+        "description": "Total resources are ample, but they are on the wrong venues for this direction.",
+        "file": "venue_inventory.jsonl",
+        "id": "venue_inventory",
+        "rows": 6,
+        "sha256": "b88ed750ca3aa7ec3779e506989a7da3bbc1ae81a37332cc879e3c60d08724f6"
+      }
+    ],
+    "schema_version": 1,
+    "seed": "mechanical-fixtures-v1",
+    "source_kind": "synthetic"
+  },
+  "models": [
+    "screen",
+    "fees",
+    "depth",
+    "latency",
+    "guarded"
+  ],
+  "parameters_by_run": [
+    {
+      "model": "screen",
+      "parameters": {
+        "depth_mode": "top",
+        "fee_bps": {
+          "alpha": "0",
+          "beta": "0"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "fee_trap"
+    },
+    {
+      "model": "fees",
+      "parameters": {
+        "depth_mode": "top",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "fee_trap"
+    },
+    {
+      "model": "depth",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "fee_trap"
+    },
+    {
+      "model": "latency",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 100,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "fee_trap"
+    },
+    {
+      "model": "guarded",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 100,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": true,
+        "require_event_time": true,
+        "risk_halt": true,
+        "signal_policy": "net"
+      },
+      "scenario": "fee_trap"
+    },
+    {
+      "model": "screen",
+      "parameters": {
+        "depth_mode": "top",
+        "fee_bps": {
+          "alpha": "0",
+          "beta": "0"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "depth_trap"
+    },
+    {
+      "model": "fees",
+      "parameters": {
+        "depth_mode": "top",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "depth_trap"
+    },
+    {
+      "model": "depth",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "depth_trap"
+    },
+    {
+      "model": "latency",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 100,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "depth_trap"
+    },
+    {
+      "model": "guarded",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 100,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": true,
+        "require_event_time": true,
+        "risk_halt": true,
+        "signal_policy": "net"
+      },
+      "scenario": "depth_trap"
+    },
+    {
+      "model": "screen",
+      "parameters": {
+        "depth_mode": "top",
+        "fee_bps": {
+          "alpha": "0",
+          "beta": "0"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "latency_race"
+    },
+    {
+      "model": "fees",
+      "parameters": {
+        "depth_mode": "top",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "latency_race"
+    },
+    {
+      "model": "depth",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "latency_race"
+    },
+    {
+      "model": "latency",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 100,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "latency_race"
+    },
+    {
+      "model": "guarded",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 100,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": true,
+        "require_event_time": true,
+        "risk_halt": true,
+        "signal_policy": "net"
+      },
+      "scenario": "latency_race"
+    },
+    {
+      "model": "screen",
+      "parameters": {
+        "depth_mode": "top",
+        "fee_bps": {
+          "alpha": "0",
+          "beta": "0"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "partial_leg"
+    },
+    {
+      "model": "fees",
+      "parameters": {
+        "depth_mode": "top",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "partial_leg"
+    },
+    {
+      "model": "depth",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "partial_leg"
+    },
+    {
+      "model": "latency",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 100,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "partial_leg"
+    },
+    {
+      "model": "guarded",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 100,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": true,
+        "require_event_time": true,
+        "risk_halt": true,
+        "signal_policy": "net"
+      },
+      "scenario": "partial_leg"
+    },
+    {
+      "model": "screen",
+      "parameters": {
+        "depth_mode": "top",
+        "fee_bps": {
+          "alpha": "0",
+          "beta": "0"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "stale_quote"
+    },
+    {
+      "model": "fees",
+      "parameters": {
+        "depth_mode": "top",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "stale_quote"
+    },
+    {
+      "model": "depth",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "stale_quote"
+    },
+    {
+      "model": "latency",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 100,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "stale_quote"
+    },
+    {
+      "model": "guarded",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 100,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": true,
+        "require_event_time": true,
+        "risk_halt": true,
+        "signal_policy": "net"
+      },
+      "scenario": "stale_quote"
+    },
+    {
+      "model": "screen",
+      "parameters": {
+        "depth_mode": "top",
+        "fee_bps": {
+          "alpha": "0",
+          "beta": "0"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "venue_inventory"
+    },
+    {
+      "model": "fees",
+      "parameters": {
+        "depth_mode": "top",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "venue_inventory"
+    },
+    {
+      "model": "depth",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 0,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "venue_inventory"
+    },
+    {
+      "model": "latency",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 100,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": false,
+        "require_event_time": true,
+        "risk_halt": false,
+        "signal_policy": "gross"
+      },
+      "scenario": "venue_inventory"
+    },
+    {
+      "model": "guarded",
+      "parameters": {
+        "depth_mode": "l2",
+        "fee_bps": {
+          "alpha": "10.000",
+          "beta": "10.000"
+        },
+        "latency_ms": 100,
+        "max_event_skew_ms": 100,
+        "max_pairs": 1,
+        "max_quote_age_ms": 250,
+        "max_unhedged_btc": "0.005",
+        "min_edge_bps": "0",
+        "order_qty": "0.02",
+        "quality_gates": true,
+        "require_event_time": true,
+        "risk_halt": true,
+        "signal_policy": "net"
+      },
+      "scenario": "venue_inventory"
+    }
+  ],
+  "public_safe_export": true,
+  "python": "3.14.4",
+  "runs": 30,
+  "schema_version": 1,
+  "source_kind": "synthetic"
+}

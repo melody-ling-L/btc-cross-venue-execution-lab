@@ -1,0 +1,3 @@
+# Generated research evidence stays inspectable without dominating source diffs.
+docs/demo/** linguist-generated=true
+docs/real-sample/** linguist-generated=true

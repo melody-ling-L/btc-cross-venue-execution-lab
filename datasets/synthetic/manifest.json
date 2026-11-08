@@ -1,0 +1,71 @@
+{
+  "note": "Engineered mechanism experiments, not historical observations.",
+  "scenarios": [
+    {
+      "config_overrides": {},
+      "description": "A positive top-of-book spread becomes negative after two-sided fees.",
+      "file": "fee_trap.jsonl",
+      "id": "fee_trap",
+      "rows": 6,
+      "sha256": "1725ae36d016f05cd22dc919568d4bb7b734ae5dc101c1358d212527bb56e055"
+    },
+    {
+      "config_overrides": {},
+      "description": "The top level is too small; quantity-dependent VWAP erases the apparent edge.",
+      "file": "depth_trap.jsonl",
+      "id": "depth_trap",
+      "rows": 6,
+      "sha256": "84671e60f722deea6053a5e2537017c3dca075ad60d932bb9a53273bf702119b"
+    },
+    {
+      "config_overrides": {
+        "mark_end": "99000"
+      },
+      "description": "A sell quote moves before IOC arrival; only the buy fills before a lower terminal mark.",
+      "file": "latency_race.jsonl",
+      "id": "latency_race",
+      "rows": 6,
+      "sha256": "52470e79352bdd84fb24f59353bf25473c68f3c610acac90a903d79c697c5fd3"
+    },
+    {
+      "config_overrides": {
+        "mark_end": "99000"
+      },
+      "description": "The sell book thins after the decision, leaving unmatched BTC and triggering a halt.",
+      "file": "partial_leg.jsonl",
+      "id": "partial_leg",
+      "rows": 6,
+      "sha256": "1bc1f55acb34d32d07285277851c98a2e0f5a3bde79c8233c0f009b946eabceb"
+    },
+    {
+      "config_overrides": {},
+      "description": "A fresh quote is paired with an old snapshot; guarded entry rejects it.",
+      "file": "stale_quote.jsonl",
+      "id": "stale_quote",
+      "rows": 4,
+      "sha256": "c3bbe4fc72a1b3b5db8ba3fbd4322d683db0a94ff52d1702785672f1b628140e"
+    },
+    {
+      "config_overrides": {
+        "initial_balances": {
+          "alpha": {
+            "btc": "0.2",
+            "usdt": "500"
+          },
+          "beta": {
+            "btc": "0.005",
+            "usdt": "20000"
+          }
+        }
+      },
+      "description": "Total resources are ample, but they are on the wrong venues for this direction.",
+      "file": "venue_inventory.jsonl",
+      "id": "venue_inventory",
+      "rows": 6,
+      "sha256": "b88ed750ca3aa7ec3779e506989a7da3bbc1ae81a37332cc879e3c60d08724f6"
+    }
+  ],
+  "schema_version": 1,
+  "seed": "mechanical-fixtures-v1",
+  "source_kind": "synthetic"
+}
