@@ -103,6 +103,23 @@ Only one pair is pending at a time. Residual BTC limits halt new submissions; v1
 | [`tests/`](tests/) | Causal timing, costs, balances, partial fills, uncertainty and data checks |
 | [`exercises/`](exercises/) / [`examples/`](examples/) | Earlier guided Python, SQL and ledger learning work |
 
+## Guided ledger exercises
+
+The learner supplied the sell-side cash/BTC branches, the ending-balance expressions, the complete equity aggregation query, and the cash-coverage comparison after a surplus-cash counterexample. The assistant supplied fixtures, SQL scaffolds, the CTE/view runner and execution checks. These contributions are separate from the AI-assisted replay engine.
+
+Run the fixed synthetic, in-memory fixture:
+
+```bash
+python exercises/day04_trade_cashflows.py
+python exercises/day04_trade_cashflows.py --sql exercises/day04_trade_balances.sql
+python exercises/day04_trade_cashflows.py --sql exercises/day04_trade_equity.sql
+python exercises/day05_can_buy.py
+```
+
+The equity query returns 9,997.4925 USDT, 0.1 BTC, 10.0075 USDT of disclosed fees and 19,997.4925 USDT of equity at a common mark of 100,000. Fees are already included in cash. At a terminal mark of 90,000, the hold benchmark is 19,000 and the execution contribution remains −2.5075 USDT.
+
+Fixture scope: complete confirmed BTC/USDT spot fills, USDT fees, both venues trading and no other asset movements. The balance query's inner join relies on both venues having fills. SQLite `REAL` is used for query practice; local checks compare it with the independent `Decimal` reference ledger within a stated numerical tolerance. `can_buy` assumes valid inputs and checks one leg's cash requirement only.
+
 ## Explain it, then improve it
 
 Start with the [Chinese learning route](docs/LEARNING_PATH.zh-CN.md) and [interview walkthrough](docs/INTERVIEW.md). A useful next contribution is a failing counterexample plus a small fix, accompanied by a predicted result and a reproducible run. A working repository alone does not demonstrate that its author understands every assumption.
