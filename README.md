@@ -120,6 +120,15 @@ The equity query returns 9,997.4925 USDT, 0.1 BTC, 10.0075 USDT of disclosed fee
 
 Fixture scope: complete confirmed BTC/USDT spot fills, USDT fees, both venues trading and no other asset movements. The balance query's inner join relies on both venues having fills. SQLite `REAL` is used for query practice; local checks compare it with the independent `Decimal` reference ledger within a stated numerical tolerance. `can_buy` assumes valid inputs and checks one leg's cash requirement only.
 
+The zero-fill extension adds venue C with 1,000 USDT and no BTC, confirmed to have no fills or other asset movements. The learner explained the missing-venue cause and repair conditions, then filled the three numeric fields in the assistant's `LEFT JOIN` / `COALESCE` scaffold:
+
+```bash
+python exercises/day04_trade_cashflows.py --include-idle-venue --sql exercises/day06_zero_fill_balances.sql
+python exercises/day04_trade_cashflows.py --include-idle-venue --sql exercises/day04_trade_equity.sql
+```
+
+The shared `ending_balances` view now uses this coverage-preserving query. C retains 1,000 USDT, zero BTC and zero trade fees; A/B and their fees stay unchanged. The total equity becomes 20,997.4925 USDT at the same 100,000 mark. This restores omitted initial assets rather than creating 1,000 USDT of strategy profit. Missing query results or incomplete collection still require an unknown state; this fixture's confirmed zero activity is the reason its missing changes can be zero-filled.
+
 ## Explain it, then improve it
 
 Start with the [Chinese learning route](docs/LEARNING_PATH.zh-CN.md) and [interview walkthrough](docs/INTERVIEW.md). A useful next contribution is a failing counterexample plus a small fix, accompanied by a predicted result and a reproducible run. A working repository alone does not demonstrate that its author understands every assumption.

@@ -2,6 +2,7 @@
 
 只连接 SQLite 内存库，供练习 SELECT、CASE 和余额连接。
 本题 BTC/USDT、费用以 USDT 支付，成交全集已知且无其他资金变动。
+可选的零成交C所扩展也是已核实完整的合成情形，不模拟查询失败。
 SQLite REAL 用于查询教学；精确资金记账参考 examples/ledger_reference.py。
 """
 from __future__ import annotations
@@ -19,7 +20,7 @@ FILLS = (
 INITIAL_BALANCES = (("A", 10000.0, 0.0), ("B", 0.0, 0.1))
 
 
-def run_query(sql: str) -> tuple[list[str], list[tuple]]:
+def run_query(sql: str, *, include_idle_venue: bool = False) -> tuple[list[str], list[tuple]]:
     """供已知完整的教学成交汇总；不执行行情采集或真实账户查询。"""
     with closing(sqlite3.connect(":memory:")) as db:
         db.execute(
@@ -32,10 +33,11 @@ def run_query(sql: str) -> tuple[list[str], list[tuple]]:
             "initial_usdt REAL NOT NULL, initial_btc REAL NOT NULL)"
         )
         db.executemany("INSERT INTO fills VALUES (?,?,?,?,?,?)", FILLS)
-        db.executemany("INSERT INTO initial_balances VALUES (?,?,?)", INITIAL_BALANCES)
-        # 将已完成的余额查询提供为临时视图，供下一步总权益查询使用。
+        initial = INITIAL_BALANCES + (("C", 1000.0, 0.0),) if include_idle_venue else INITIAL_BALANCES
+        db.executemany("INSERT INTO initial_balances VALUES (?,?,?)", initial)
+        # 保留全部期初场所的余额查询，供后续总权益查询使用。
         # 仍只存在于本次内存数据库，不写入活跃账本。
-        balance_sql = Path(__file__).with_name("day04_trade_balances.sql").read_text(encoding="utf-8")
+        balance_sql = Path(__file__).with_name("day06_zero_fill_balances.sql").read_text(encoding="utf-8")
         db.execute("CREATE TEMP VIEW ending_balances AS " + balance_sql)
         cursor = db.execute(sql)
         if cursor.description is None:
@@ -46,9 +48,12 @@ def run_query(sql: str) -> tuple[list[str], list[tuple]]:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--sql", type=Path, default=Path(__file__).with_suffix(".sql"))
+    parser.add_argument("--include-idle-venue", action="store_true", help="增加已确认无成交、期初1000 USDT的C所")
     args = parser.parse_args()
-    columns, rows = run_query(args.sql.read_text(encoding="utf-8"))
+    columns, rows = run_query(args.sql.read_text(encoding="utf-8"), include_idle_venue=args.include_idle_venue)
     print("第一天合成成交 | 现金与费用单位USDT，数量单位BTC")
+    if args.include_idle_venue:
+        print("扩展案例：C所期初1000 USDT、0 BTC，已确认本期无成交及其他资金变动。")
     print(" | ".join(columns))
     for row in rows:
         print(" | ".join(str(value) for value in row))
